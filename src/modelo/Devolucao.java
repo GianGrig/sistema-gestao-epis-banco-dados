@@ -1,16 +1,18 @@
+package modelo;
+
 public class Devolucao {
     private int id_devolucao;
-    private Emprestimo emprestimo;
+    private int id_emprestimo;
     private String data_devolucao;
 
-    public Devolucao(Emprestimo emprestimo, String data_devolucao) {
-        this.emprestimo = emprestimo;
+    public Devolucao(int id_emprestimo, String data_devolucao) {
+        this.id_emprestimo = id_emprestimo;
         this.data_devolucao = data_devolucao;
     }
 
-    public Devolucao(int id_devolucao, Emprestimo emprestimo, String data_devolucao) {
+    public Devolucao(int id_devolucao, int id_emprestimo, String data_devolucao) {
         this.id_devolucao = id_devolucao;
-        this.emprestimo = emprestimo;
+        this.id_emprestimo = id_emprestimo;
         this.data_devolucao = data_devolucao;
     }
 
@@ -22,8 +24,12 @@ public class Devolucao {
         this.id_devolucao = id_devolucao;
     }
 
-    public int getId_Emprestimo() {
-        return emprestimo.getId_emprstimo();
+    public int getId_emprestimo() {
+        return id_emprestimo;
+    }
+
+    public void setId_emprestimo(int id_emprestimo) {
+        this.id_emprestimo = id_emprestimo;
     }
 
     public String getData_devolucao() {

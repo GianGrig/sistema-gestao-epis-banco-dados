@@ -1,7 +1,12 @@
+package dao;
+
+import conexao.Conexao;
+import modelo.EPI;
 import java.sql.*;
 import java.util.ArrayList;
 
 public class EPIDao {
+
     public void inserirEPI(EPI epi) {
         String sql = "INSERT INTO epi (nome, validade, quantidade) VALUES (?, ?, ?)";
         try (Connection conn = Conexao.conectar();
@@ -65,7 +70,7 @@ public class EPIDao {
             stmt.setString(1, epi.getNome());
             stmt.setString(2, epi.getValidade());
             stmt.setInt(3, epi.getQuantidade());
-            stmt.setInt(4, epi.getId());
+            stmt.setInt(4, epi.getId_epi());
             int linhasAfetadas = stmt.executeUpdate();
             if (linhasAfetadas > 0) {
                 System.out.println("EPI atualizado com sucesso!");

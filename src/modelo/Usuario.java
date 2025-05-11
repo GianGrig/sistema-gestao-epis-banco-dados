@@ -1,25 +1,28 @@
+package modelo;
+
 public class Usuario {
     public enum Perfil {
+
         ADMINISTRADOR,
         COLABORADOR
     }
 
     private int id_usuario;
-    private String nome_usuario;
+    private String nome;
     private String email;
     private String senha;
     private Perfil perfil;
 
-    public Usuario(String nome_usuario, String email, String senha, Perfil perfil) {
-        this.nome_usuario = nome_usuario;
+    public Usuario(String nome, String email, String senha, Perfil perfil) {
+        this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.perfil = perfil;
     }
 
-    public Usuario(int id_usuario, String nome_usuario, String email, Perfil perfil, String senha) {
+    public Usuario(int id_usuario, String nome, String email, Perfil perfil, String senha) {
         this.id_usuario = id_usuario;
-        this.nome_usuario = nome_usuario;
+        this.nome = nome;
         this.email = email;
         this.perfil = perfil;
         this.senha = senha;
@@ -49,12 +52,12 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getNome_usuario() {
-        return nome_usuario;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNome_usuario(String nome_usuario) {
-        this.nome_usuario = nome_usuario;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getSenha() {
