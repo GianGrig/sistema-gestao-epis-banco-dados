@@ -36,7 +36,9 @@ public class MenuEmprestimo {
                     String data_retirada = sc.nextLine();
                     System.out.print("Data prevista devolução (aaaa-mm-dd hh:mm:ss): ");
                     String data_prevista_retirada = sc.nextLine();
-                    Emprestimo novo = new Emprestimo(id_usuario, id_epi, data_retirada, data_prevista_retirada, 0);
+                    System.out.print("Confirmar retirada? (1 = Sim, 0 = Não): ");
+                    int confirmacao_retirada = sc.nextInt();
+                    Emprestimo novo = new Emprestimo(id_usuario, id_epi, data_retirada, data_prevista_retirada, confirmacao_retirada);
                     dao.inserirEmprestimo(novo);
                 }
                 case 2 -> {
