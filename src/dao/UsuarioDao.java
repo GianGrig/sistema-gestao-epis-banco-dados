@@ -22,28 +22,6 @@ public class UsuarioDao {
         }
     }
 
-    public Usuario buscarPorId(int id) {
-        String sql = "SELECT * FROM usuario WHERE id_usuario = ?";
-        try (Connection conn = Conexao.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return new Usuario(
-                            rs.getInt("id_usuario"),
-                            rs.getString("nome"),
-                            rs.getString("email"),
-                            Usuario.Perfil.valueOf(rs.getString("perfil")),
-                            rs.getString("senha")
-                    );
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Erro ao buscar usuário por ID: " + e.getMessage());
-        }
-        return null;
-    }
-
     public ArrayList<Usuario> listarUsuarios() {
         ArrayList<Usuario> lista = new ArrayList<>();
         String sql = "SELECT * FROM usuario";

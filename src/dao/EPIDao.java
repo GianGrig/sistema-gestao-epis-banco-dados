@@ -42,27 +42,6 @@ public class EPIDao {
         return lista;
     }
 
-    public EPI buscarPorId(int id) {
-        String sql = "SELECT * FROM epi WHERE id_epi = ?";
-        try (Connection conn = Conexao.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return new EPI(
-                            rs.getInt("id_epi"),
-                            rs.getString("nome"),
-                            rs.getString("validade"),
-                            rs.getInt("quantidade")
-                    );
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Erro ao buscar EPI por ID: " + e.getMessage());
-        }
-        return null;
-    }
-
     public void atualizarEPI(EPI epi) {
         String sql = "UPDATE epi SET nome = ?, validade = ?, quantidade = ? WHERE id_epi = ?";
         try (Connection conn = Conexao.conectar();
