@@ -70,7 +70,7 @@ public class EPIDao {
         String sql = "DELETE FROM epi WHERE id_epi = ?";
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id_epi);
+                stmt.setInt(1, id_epi);
             int linhasAfetadas = stmt.executeUpdate();
             if (linhasAfetadas > 0) {
                 System.out.println("EPI excluído com sucesso!");

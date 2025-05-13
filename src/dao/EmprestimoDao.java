@@ -25,6 +25,7 @@ public class EmprestimoDao {
             stmt.setString(4, emprestimo.getData_prevista_devolucao());
             stmt.setInt(5, emprestimo.getConfirmacao_retirada());
             stmt.executeUpdate();
+            System.out.println("Empréstimo inserido com sucesso!");
         } catch (SQLException e) {
             System.out.println("Erro ao excluir Empréstimo: " + e.getMessage());
         }
@@ -65,6 +66,12 @@ public class EmprestimoDao {
             stmt.setInt(5, emprestimo.getConfirmacao_retirada());
             stmt.setInt(6, emprestimo.getId_emprestimo());
             stmt.executeUpdate();
+            int linhasAfetadas = stmt.executeUpdate();
+            if (linhasAfetadas > 0) {
+                System.out.println("Empréstimo atualizado com sucesso!");
+            } else {
+                System.out.println("Empréstimo não encontrado para atualização.");
+            }
         } catch (SQLException e) {
             System.out.println("Erro ao excluir Empréstimo: " + e.getMessage());
         }
@@ -77,14 +84,14 @@ public class EmprestimoDao {
         }
 
         String sql = "DELETE FROM emprestimo WHERE id_emprestimo = ?";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, id_emprestimo);
-            stmt.executeUpdate();
+        try (Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, id_emprestimo);
             int linhasAfetadas = stmt.executeUpdate();
             if (linhasAfetadas > 0) {
-                System.out.println("EPI excluído com sucesso!");
+                System.out.println("Empréstimo excluído com sucesso!");
             } else {
-                System.out.println("EPI não encontrado para exclusão.");
+                System.out.println("Empréstimo não encontrado para exclusão.");
             }
         } catch (SQLException e) {
             System.out.println("Erro ao excluir Empréstimo: " + e.getMessage());

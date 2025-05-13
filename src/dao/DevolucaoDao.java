@@ -24,6 +24,7 @@ public class DevolucaoDao {
             stmt.setInt(1, devolucao.getId_emprestimo());
             stmt.setString(2, devolucao.getData_devolucao());
             stmt.executeUpdate();
+            System.out.println("Devolução inserido com sucesso!");
         } catch (SQLException e) {
             System.out.println("Erro ao excluir Devolução: " + e.getMessage());
         }
@@ -58,22 +59,28 @@ public class DevolucaoDao {
             stmt.setString(2, devolucao.getData_devolucao());
             stmt.setInt(3, devolucao.getId_devolucao());
             stmt.executeUpdate();
+            int linhasAfetadas = stmt.executeUpdate();
+            if (linhasAfetadas > 0) {
+                System.out.println("Devolução atualizado com sucesso!");
+            } else {
+                System.out.println("Devolução não encontrado para atualização.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void excluirDevolucao(int id) {
+    public void excluirDevolucao(int id_devolucao) {
         String sql = "DELETE FROM devolucao WHERE id_devolucao = ?";
 
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id_devolucao);
             int linhasAfetadas = stmt.executeUpdate();
             if (linhasAfetadas > 0) {
-                System.out.println("EPI excluído com sucesso!");
+                System.out.println("Devolução excluído com sucesso!");
             } else {
-                System.out.println("EPI não encontrado para exclusão.");
+                System.out.println("Devolução não encontrado para exclusão.");
             }
         } catch (SQLException e) {
             System.out.println("Erro ao excluir Devolução: " + e.getMessage());
