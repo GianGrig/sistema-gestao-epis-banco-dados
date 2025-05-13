@@ -66,9 +66,8 @@ public class UsuarioDao {
     }
 
     public void excluirUsuario(int id_usuario) {
-        EmprestimoDao emprestimoDAO = new EmprestimoDao(); // cria um DAO para verificar os empréstimos
 
-        if (emprestimoDAO.existeEmprestimoParaUsuario(id_usuario)) {
+        if (EmprestimoDao.existeEmprestimoParaUsuario(id_usuario)) {
             System.out.println("Não é possível deletar o usuário. Existem empréstimos vinculados a ele.");
             return;
         }

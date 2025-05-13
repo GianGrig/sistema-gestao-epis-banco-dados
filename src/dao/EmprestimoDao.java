@@ -70,11 +70,15 @@ public class EmprestimoDao {
         }
     }
 
-    public void excluirEmprestimo(int id) {
-        String sql = "DELETE FROM emprestimo WHERE id_emprestimo = ?";
+    public void excluirEmprestimo(int id_emprestimo) {
+        if (DevolucaoDao.existeDevolucaoParaEmprestimo(id_emprestimo)) {
+            System.out.println("Não é possível excluir o empréstimo. Já existe uma devolução vinculada a ele.");
+            return;
+        }
 
+        String sql = "DELETE FROM emprestimo WHERE id_emprestimo = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setInt(1, id_emprestimo);
             stmt.executeUpdate();
             int linhasAfetadas = stmt.executeUpdate();
             if (linhasAfetadas > 0) {
@@ -87,19 +91,34 @@ public class EmprestimoDao {
         }
     }
 
-    public boolean existeEmprestimoParaUsuario(int idUsuario) {
+    public static boolean existeEmprestimoParaUsuario(int id_usuario) {
         String sql = "SELECT COUNT(*) FROM emprestimo WHERE id_usuario = ?";
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, idUsuario);
+            stmt.setInt(1, id_usuario);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 return rs.getInt(1) > 0;
             }
         } catch (SQLException e) {
-            System.out.println("Erro ao excluir Empréstimo: " + e.getMessage());
+            System.out.println("Erro ao verificar se o usuário está vinculado a um empréstimo: " + e.getMessage());
+        }
+        return false;
+    }
+
+    public static boolean existeEmprestimoParaEpi(int id_epi) {
+        String sql = "SELECT COUNT(*) FROM emprestimo WHERE id_epi = ?";
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id_epi);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao verificar se a EPI está vinculada a um empréstimo: " + e.getMessage());
         }
         return false;
     }

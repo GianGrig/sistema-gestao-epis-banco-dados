@@ -79,4 +79,23 @@ public class DevolucaoDao {
             System.out.println("Erro ao excluir Devolução: " + e.getMessage());
         }
     }
+
+    public static boolean existeDevolucaoParaEmprestimo(int id_emprestimo) {
+        String sql = "SELECT COUNT(*) FROM devolucao WHERE id_emprestimo = ?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id_emprestimo);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao verificar se o empréstimo está vinculado a uma devolução: " + e.getMessage());
+        }
+
+        return false;
+    }
 }

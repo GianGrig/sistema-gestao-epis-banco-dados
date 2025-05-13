@@ -61,11 +61,16 @@ public class EPIDao {
         }
     }
 
-    public void excluirEPI(int id) {
+    public void excluirEPI(int id_epi) {
+        if (EmprestimoDao.existeEmprestimoParaEpi(id_epi)) {
+            System.out.println("Não é possível excluir a EPI. Existem empréstimos vinculados a ela.");
+            return;
+        }
+
         String sql = "DELETE FROM epi WHERE id_epi = ?";
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setInt(1, id_epi);
             int linhasAfetadas = stmt.executeUpdate();
             if (linhasAfetadas > 0) {
                 System.out.println("EPI excluído com sucesso!");
