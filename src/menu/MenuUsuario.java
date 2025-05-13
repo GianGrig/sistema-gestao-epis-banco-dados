@@ -34,7 +34,7 @@ public class MenuUsuario {
                     String email = sc.nextLine();
                     System.out.print("Senha: ");
                     String senha = sc.nextLine();
-                    System.out.print("Perfil (adiministrador ou colaborador): ");
+                    System.out.print("Perfil (administrador ou colaborador): ");
                     String perfilStr = sc.nextLine().toUpperCase();
 
                     Perfil perfil = Perfil.valueOf(perfilStr);
@@ -71,7 +71,7 @@ public class MenuUsuario {
                         String email = sc.nextLine();
                         System.out.print("Nova senha: ");
                         String senha = sc.nextLine();
-                        System.out.print("Novo perfil (ADMINISTRADOR ou COLABORADOR): ");
+                        System.out.print("Novo perfil (administrador ou colaborador): ");
                         String perfilStr2 = sc.nextLine().toUpperCase();
                         Perfil perfil2 = Perfil.valueOf(perfilStr2);
                         Usuario atualizado = new Usuario(id, nome, email, perfil2, senha);
@@ -85,11 +85,16 @@ public class MenuUsuario {
                     } else {
                         System.out.println("\nLista de Usuários:");
                         for (Usuario u : lista) {
-                            System.out.println("\nID: " + u.getId_usuario() + " | Nome: " + u.getNome() + " | Email: " + u.getEmail() + " | Perfil: " + u.getPerfil());
+                            System.out.println("ID: " + u.getId_usuario() + " | Nome: " + u.getNome() + " | Email: " + u.getEmail() + " | Perfil: " + u.getPerfil());
                         }
                         System.out.print("ID do usuário a remover: ");
                         int id = sc.nextInt();
-                        dao.excluirUsuario(id);
+
+
+
+                            dao.excluirUsuario(id);
+
+
                     }
 
                 }

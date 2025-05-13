@@ -66,6 +66,13 @@ public class UsuarioDao {
     }
 
     public void excluirUsuario(int id_usuario) {
+        EmprestimoDao emprestimoDAO = new EmprestimoDao(); // cria um DAO para verificar os empréstimos
+
+        if (emprestimoDAO.existeEmprestimoParaUsuario(id_usuario)) {
+            System.out.println("Não é possível deletar o usuário. Existem empréstimos vinculados a ele.");
+            return;
+        }
+
         String sql = "DELETE FROM usuario WHERE id_usuario = ?";
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -80,4 +87,5 @@ public class UsuarioDao {
             System.out.println("Erro ao excluir usuário: " + e.getMessage());
         }
     }
+
 }

@@ -40,6 +40,7 @@ public class MenuEmprestimo {
                     int confirmacao_retirada = sc.nextInt();
                     Emprestimo novo = new Emprestimo(id_usuario, id_epi, data_retirada, data_prevista_retirada, confirmacao_retirada);
                     dao.inserirEmprestimo(novo);
+
                 }
                 case 2 -> {
                     ArrayList<Emprestimo> lista = (ArrayList<Emprestimo>) dao.listarEmprestimos();

@@ -26,7 +26,7 @@ public class EmprestimoDao {
             stmt.setInt(5, emprestimo.getConfirmacao_retirada());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Erro ao excluir Empréstimo: " + e.getMessage());
         }
     }
 
@@ -66,7 +66,7 @@ public class EmprestimoDao {
             stmt.setInt(6, emprestimo.getId_emprestimo());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Erro ao excluir Empréstimo: " + e.getMessage());
         }
     }
 
@@ -76,8 +76,31 @@ public class EmprestimoDao {
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
+            int linhasAfetadas = stmt.executeUpdate();
+            if (linhasAfetadas > 0) {
+                System.out.println("EPI excluído com sucesso!");
+            } else {
+                System.out.println("EPI não encontrado para exclusão.");
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Erro ao excluir Empréstimo: " + e.getMessage());
         }
+    }
+
+    public boolean existeEmprestimoParaUsuario(int idUsuario) {
+        String sql = "SELECT COUNT(*) FROM emprestimo WHERE id_usuario = ?";
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idUsuario);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao excluir Empréstimo: " + e.getMessage());
+        }
+        return false;
     }
 }

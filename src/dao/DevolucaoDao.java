@@ -25,7 +25,7 @@ public class DevolucaoDao {
             stmt.setString(2, devolucao.getData_devolucao());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Erro ao excluir Devolução: " + e.getMessage());
         }
     }
 
@@ -45,7 +45,7 @@ public class DevolucaoDao {
                 devolucoes.add(devolucao);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Erro ao excluir Devolução: " + e.getMessage());
         }
         return devolucoes;
     }
@@ -69,8 +69,14 @@ public class DevolucaoDao {
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
+            int linhasAfetadas = stmt.executeUpdate();
+            if (linhasAfetadas > 0) {
+                System.out.println("EPI excluído com sucesso!");
+            } else {
+                System.out.println("EPI não encontrado para exclusão.");
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Erro ao excluir Devolução: " + e.getMessage());
         }
     }
 }
